@@ -1,0 +1,34 @@
+<% provide(:title, 'All societies') %>
+    <div class="row-fluid">
+        <div class="col-md-11 column">
+
+
+          <h1>All societies</h1>
+          <%= will_paginate %>
+          <%= link_to 'New Society', new_society_path, class: "btn btn-primary btn-sm pull-right" %>
+
+
+
+            <ul class="media-list">
+            <% @societies.each do |society| %>
+              
+            <li class="media">
+              <a class="pull-left" href='<%=society_path(id: society.id)%>'>
+                <% if society.logo_data != nil %>
+                  <%= image_tag serve_society_path(id: society.id), :size => "64x64" %>
+                <% else %>
+                  <%= image_tag "default_avatar.jpg", :size => "64x64" %>
+                <% end %>
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading"><%= society.s_name %></h4>
+                <%= society.description %>
+              </div>
+            </li>
+            <% end %>
+            </ul>
+          <%= will_paginate %>
+        </div>
+    </div>
+
+

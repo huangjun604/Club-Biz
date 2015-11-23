@@ -1,4 +1,34 @@
 ClubBiz::Application.routes.draw do
+  devise_for :users
+  resources :users do
+    member do
+      get :reserved_events
+      get "show_avatar"
+    end
+  end
+  resources :tickets, only: [:create, :destroy]
+  root to: "homepage#index"
+  match '/about',   to: 'homepage#about',   via: 'get'
+  match '/contact', to: 'homepage#contact', via: 'get'
+
+  resources :events, only: [:index]
+
+  resources :societies do
+    member do
+      get "serve"
+      post "join"
+      post "leave"
+    end
+    resources :events do
+      member do
+        get "display"
+      end
+    end
+  end
+
+  resources :comments, only: [:create, :destroy]
+  resources :announcements, only: [:create, :destroy]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

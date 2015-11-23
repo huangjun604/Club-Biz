@@ -1,0 +1,11 @@
+<li class="media">
+<div class="media-body">
+  <h4 class="media-heading"><%= User.find(comment.user_id).username %><small> Posted <%= time_ago_in_words(comment.created_at) %> ago.</small></h4>
+  <strong><%= comment.content %></strong>
+ <% if ((current_user != nil) && ((current_user.id == comment.user_id) || issadmin?)) %>
+    <%= link_to "delete", comment, method: :delete,
+                           data: { confirm: "You sure?" },
+                           title: comment.content %>
+  <% end %>
+</div>
+</li>

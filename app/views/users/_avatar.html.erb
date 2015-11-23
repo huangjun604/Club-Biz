@@ -1,0 +1,37 @@
+<% if @user.avator_data != nil %>
+  <p data-toggle="modal" data-target="#myModal">
+    <%= image_tag show_avatar_user_path, :size => "80x80" %>
+  </p>
+<% else %>
+  <p data-toggle="modal" data-target="#myModal">
+    <%= image_tag "default_avatar.jpg", :size => "80x80" %>
+  </p>
+<% end %>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+    	<%= form_for(@user, :html => {:multipart => true}) do |f| %>
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Choose New Avatar</h4>
+      </div>
+
+      <div class="modal-body">
+        <%= f.label :avatar, "New Avatar" %>
+        <%= f.file_field :avatar %>
+      </div>
+
+      <div class="modal-footer">
+        <%= f.submit "Change Avatar", class: "btn btn-primary" %>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+  
+<% end %>

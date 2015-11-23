@@ -1,0 +1,85 @@
+<% if notice != nil %> 
+<div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <%= image_tag "bg3.jpg" %>
+      <div class="carousel-caption" data-interval="200">
+        <h1>Welcome to Club-Biz</h1>
+		<% if current_user != nil %>
+		  	<h2>
+		  		Hello!
+		  	  <%= current_user.username %>
+		  	</h2>
+		  <% else %>
+		  	<%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-success" %>
+	  <% end %>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+      </div>
+    </div>
+
+    <div class="item">
+      <%= image_tag "bg2.jpg" %>
+      <div class="carousel-caption">
+        <h1>Welcome to Club-Biz</h1>
+		<% if current_user != nil %>
+		  	<h2>
+		  		Hello!
+		  	  <%= current_user.username %>
+		  	</h2>
+		  <% else %>
+		  	<%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-success" %>
+	  <% end %>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+      </div>
+    </div>
+
+    <div class="item">
+      <%= image_tag "bg1.jpg" %>
+      <div class="carousel-caption">
+        <h1>Welcome to Club-Biz</h1>
+		<% if current_user != nil %>
+		  	<h2>
+		  		Hello!
+		  	  <%= current_user.username %>
+		  	</h2>
+		  <% else %>
+		  	<%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-success" %>
+	  <% end %>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+

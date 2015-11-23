@@ -1,0 +1,47 @@
+<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+  Reserve
+</button>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+    	<%= form_for(@tickets.build(user_id: current_user.id, event_id: @event.id)) do |f| %>
+  		<div><%= f.hidden_field :event_id %></div>
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Reservation</h4>
+      </div>
+      <% if ismembership? %>    
+      <div class="modal-body">
+        <%= f.label "Number of tickets" %>
+      	<%= f.number_field :number, max: 4, min: 1, value: 1, class: "form-control" %>
+      </div>
+
+      <div class="modal-footer">
+        <%= f.submit "Reserve", class: "btn btn-primary" %>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      </div>
+      <% else %>
+      <div class="modal-body">
+        <div class="alert alert-danger">
+          You are not a member of our society.
+          
+          Join Us to attend our events. </div>
+
+        </h2>
+      </div>
+
+      <div class="modal-footer">
+        <%= link_to "Join us!", society_path(id: @event.society_id), class: "btn btn-success" %>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Back</button>
+      </div>
+      <% end %>
+
+    </div>
+
+  </div>
+</div>
+  
+<% end %>

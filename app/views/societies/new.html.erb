@@ -1,0 +1,43 @@
+<h1>New society</h1>
+
+<%= form_for(@society, :html => {:multipart => true}) do |f| %>
+  <% if @society.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@society.errors.count, "error") %> prohibited this society from being saved:</h2>
+
+      <ul>
+      <% @society.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :s_name, "Society Name" %><br>
+    <%= f.text_field :s_name, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :website, "Society Website" %><br>
+    <%= f.text_field :website, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :regnum, "Registration Number" %><br>
+    <%= f.text_field :regnum, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :catalogue, "Society Type" %><br>
+    <%= f.text_field :catalogue, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :description, "Society Description" %><br>
+    <%= f.text_area :description, placeholder: "Introduce your society...", class: "form-comment-description" %>
+  </div>
+  <div class="field">
+  	<%= f.label :logo, "Society Logo" %><br>
+  	<%= f.file_field :logo %>
+  </div>
+  <a><%= f.submit "Create my society", class: "btn btn-large btn-primary" %></a> <a><%= link_to 'Back', societies_path, class: "btn btn-large btn-primary" %></a>
+<% end %>
+
+

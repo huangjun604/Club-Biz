@@ -1,0 +1,22 @@
+<% provide(:title, 'All events') %>
+<h1>All events</h1>
+
+<%= will_paginate %>
+<div class="row">
+
+  <% @events.each do |event| %>
+  <div class="col-md-4">
+    <div class="thumbnail">
+
+      <%= image_tag(display_society_event_path(id: event.id, society_id: event.society_id), size: "300x200")%>
+      <div class="caption">
+        <h3><%= event.name %></h3>
+        <%= link_to "Detail", society_event_path(id: event.id, society_id: event.society_id),class: "btn btn-primary"%>
+      </div>
+    
+    </div>
+  </div>
+  <% end %>
+
+</div>
+<%= will_paginate %>

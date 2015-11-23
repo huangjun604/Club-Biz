@@ -1,0 +1,148 @@
+<% provide(:title, @title) %>
+<% if notice != nil %> 
+<div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+
+<div class="container">
+  <div class="row clearfix">
+    <div class="col-md-3 column">
+      <center>
+      <% if @society.logo_data != nil %>
+        <%= image_tag serve_society_path, :size => "240x140" %>
+      <% else %>
+        <%= image_tag "default_avatar.jpg", :size => "240x140" %>
+      <% end %>
+      <h1></h1>
+      <% if checkadmin? %>
+           <%= link_to 'Edit', edit_society_path(@society), class: "btn btn-primary btn-sm" %> 
+        <% else %>
+          <% if joined? %>
+            <%= link_to "Leave", leave_society_path, :method => "post", class: "btn btn-danger btn-sm" %>
+          <% else %>
+            <%= link_to "Join!", join_society_path, :method => "post", class: "btn btn-success btn-sm" %>
+          <% end %>
+        <% end %> </center>
+      <blockquote>
+        <center><h2>
+          <%= @society.s_name %>
+        </h2> </center>
+      </blockquote>
+             
+    </div>
+    <div class="col-md-3 column">
+      <dl>
+      <h1></h1>
+      <h2></h2>
+      <h2></h2>
+        <dt>
+          Name:
+        </dt>
+        <dd>
+          <%= @society.s_name %>
+          <br>
+        </dd>
+        <dt>
+          <br>
+          Catalogue:
+        </dt>
+        <dd>
+          <%= @society.catalogue %>
+        </dd>
+        <dt>
+          <br>
+          Website:
+        </dt>
+        <dd>
+          <%= @society.website %>
+        </dd>
+        <dt>
+          <br>
+          Description:
+        </dt>
+        <dd>
+          <%= @society.description %>
+        </dd>        
+      </dl>
+    </div>
+    <div class="col-md-5 column">
+      <% if @announcements.any? %>
+        <h3>Announcements <span class="label label-default"><%= @announcements.count %></span></h3>
+          <ul class="media-list">
+          <ol class="announcements">
+            <%= render @announcements %>
+          </ol>
+            </ul>
+        <%= will_paginate @announcements %>
+      <% else %>
+        <h3>Announcements </h3>
+      <% end %>
+
+      <% if (checkadmin?) %>
+          <%= render 'announcements/announcement_form' %>
+      <% end %>      
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-10 column">
+      <div class="tabbable" id="tabs-372248">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#panel-520136" data-toggle="tab">Event</a>
+          </li>
+          <% if checkadmin? %>
+            <a class="btn btn-link btn-primary-xs" href="<%= new_society_event_path(:society_id => @society.id) %>">
+              Add new event
+            </a>
+          <% end %>
+          
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="panel-520136">
+        
+
+                   
+            <div class="row clearfix">
+              <div class="col-md-12 column">
+                <div class="row">
+                  <% if @events.any? %>
+                  <ul>
+                    <% @events.each do |event| %>
+                        <div class="col-md-4">
+                          <div class="thumbnail">
+                            <img alt="300x200" src="<%= display_society_event_path(id: event.id, society_id: event.society_id) %>" />
+                            <div class="caption">
+                              <h3>
+                                <%= event.name %>
+                              </h3>
+                              <p>
+                                <%= event.created_at %>
+                              </p>
+                              <p>
+                                <a class="btn btn-primary" href="<%= society_event_path(id: event.id, society_id: @society.id) %>">Detail</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                     <% end %>
+                  </ul>
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

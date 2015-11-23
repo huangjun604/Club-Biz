@@ -1,0 +1,50 @@
+<h1>Editing event</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@event, url: society_event_path, :html => {:multipart => true}) do |f| %>
+    <% if @event.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+        <ul>
+        <% @event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div><%= f.hidden_field :society_id %></div>
+
+      <div class="field">
+        <%= f.label :name, "Event Name" %><br>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :date, "Date" %><br>
+        <%= f.text_field :date %>
+      </div>
+
+      <div class="field">
+        <%= f.label :ticketnum, "Number of Tickets" %><br>
+        <%= f.number_field :ticketnum, min: 0, value: 0 %>
+      </div>
+
+      <div class="field">
+        <%= f.label :description, "Event Description" %><br>
+        <%= f.text_area :description, placeholder: "Introduce your event..." %>
+      </div>
+
+      <div class="field">
+        <%= f.label :image, "Event Image" %><br>
+        <%= f.file_field :image %>
+      </div>
+
+      <%= f.submit "Update Event", class: "btn btn-large btn-primary" %>
+    <% end %>
+    <%= link_to 'Back', society_event_path, class: "btn btn-large btn-primary" %>
+  </div>
+</div>
+
+

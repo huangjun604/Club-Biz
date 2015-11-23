@@ -1,0 +1,130 @@
+<% provide(:title, @title) %>
+<% if notice != nil %> 
+<div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+
+<div class="row-fluid">
+
+    
+    <div class="col-md-3 column">
+      <ul class="ver-inline-menu tabbable margin-bottom-10">
+        <li class="row">
+          <li class="row">
+          <section>
+            <center><li><%= render 'avatar' %></li>
+            <p><h2><%= @user.username %></h2></p>
+            <p><h3><small><%= @user.email %></small></h3></p></center>
+          </section>
+        </li>
+        </li>
+          <li class="active">
+            <a data-toggle="tab" href="#tab_1">
+              <i class="glyphicon glyphicon glyphicon-home"></i> 
+                My Societies
+            </a> 
+            <span class="after"></span>                                    
+        </li>
+        
+        <li><a data-toggle="tab" href="#tab_2"><i class="glyphicon glyphicon-credit-card"></i> My Tickets</a></li>
+
+      </ul>
+    </div>
+
+    <div class="col-md-9 column">
+      <div class="tab-content">
+
+        <div id="tab_1" class="tab-pane active">
+          <div class="span8">
+
+
+
+            <h3><%= "My Societies" %></h3>
+
+            <% if @memberships.any? %>
+             <ul class="media-list">
+              
+              <ul>
+              <% @memberships.each do |membership| %>
+                
+              <li class="media">
+                <a class="pull-left" href='<%= society_path(id: membership.society_id)%>'>
+                  <% if membership.society.logo_data != nil %>
+                    <%= image_tag serve_society_path(id: membership.society.id), :size => "64x64" %>
+                  <% else %>
+                    <%= image_tag "default_avatar.jpg", :size => "64x64" %>
+                  <% end %>
+                </a>
+                <div class="media-body">
+                  <h4 class="media-heading"><%= link_to membership.society.s_name, membership.society %></h4>
+                  Join at <%= membership.created_at %>
+                </div>
+              </li>
+
+
+              <% end %>
+              </ul>
+            <% end %>
+
+           </div>
+        </div>
+        <div id="tab_2" class="tab-pane">
+          <div class="span8">
+                <div class="col-md-9 column">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>
+                          Event
+                        </th>
+                        <th>
+                          Date
+                        </th>
+                        <th>
+                          Ticket
+                        </th>
+                        <th>
+                          Society
+                        </th>
+                         <th>
+                          
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <% if @tickets.any? %>
+                      <ul>
+                        <% @tickets.each do |ticket| %>
+                        <tr class="success">
+                                  <td>
+                                    <%= link_to ticket.event.name, society_event_path(id: ticket.event.id, society_id: ticket.event.society_id) %>
+                                  </td>
+                                  <td>
+                                    <%= ticket.created_at %>
+                                  </td>
+                                  <td>
+                                    <%= ticket.number %>
+                                  </td>
+                                  <td>
+                                    <%= Society.find(ticket.event.society_id).s_name %>
+                                  </td>
+                                  <td>
+                                  <%= link_to "Cancel", ticket, method: :delete %>
+                                  </td>
+                                </tr>
+                        <% end %>
+                      </ul>
+                      <% end %>
+                      
+ 
+                    </tbody>
+                  </table>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end span9-->                                   
+</div> 
+</div>

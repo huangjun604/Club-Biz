@@ -1,0 +1,13 @@
+<li class="media">
+<div class="media-body">
+  <h4 class="media-heading"><%= announcement.content %></h4>
+  ----Posted <%= time_ago_in_words(announcement.created_at) %> ago.
+    <% if (checkadmin?) %>
+<%= link_to "delete", announcement, method: :delete,
+                      data: { confirm: "You sure?" },
+                      title: announcement.content %>
+<% end %>
+</div>
+</li>
+
+

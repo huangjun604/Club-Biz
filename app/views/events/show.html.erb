@@ -1,0 +1,90 @@
+<% if notice != nil %> 
+<div class="alert alert-success"><%= notice %></div>
+<% end %>
+<aside class="col-md-4 column">
+<p>
+  <h3>Name:</h3>
+  <%= @event.name %>
+</p>
+
+<p>
+  <h3>Date:</h3>
+  <%= @event.date %>
+</p>
+
+<p>
+  <h3>Society:</h3>
+  <%= link_to Society.find(@event.society_id).s_name, society_path(id: @event.society_id) %>
+</p>
+
+<p>
+	<h3>Number of tickets:</h3>
+	<%= @event.ticketnum %>
+</p>
+
+</a>
+  <% if @event.ticketnum > 0 %>
+   <%= render 'reserve' if user_signed_in? %>
+  <% end %>
+</a>
+
+<a>
+  <% if issadmin? %>
+   <%= link_to 'Edit', edit_society_event_path(@event, id: @event.id), class: "btn btn-primary btn-sm" %>
+  <% end %>
+</a>
+</aside>
+
+
+
+<div class="col-md-8 column">
+      <div class="carousel slide" id="carousel-167154">
+        <ol class="carousel-indicators">
+          <li class="active" data-slide-to="0" data-target="#carousel-167154">
+          </li>
+                    <li data-slide-to="1" data-target="#carousel-167154">
+          </li>
+                    <li data-slide-to="2" data-target="#carousel-167154">
+          </li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="item active">
+            <%= image_tag display_society_event_path, size: "300X100" %>
+          </div>
+                    <div class="item">
+            <%= image_tag display_society_event_path, size: "300X100" %>
+          </div>
+                    <div class="item">
+            <%= image_tag display_society_event_path, size: "300X100" %>
+          </div>
+        </div> <a class="left carousel-control" href="#carousel-167154" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-167154" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div>
+</div>
+
+<div class="col-md-12 column">
+  <div class="col-md-8 column">
+    <h3>Event Description</h3>
+      <p><%= @event.description %></p>
+</div>
+</div>
+
+
+
+
+
+<% if @comments.any? %>
+  <h3>Comments (<%= @comments.count %>)</h3>
+    <ul class="media-list">
+    <ol class="comments">
+      <%= render @comments %>
+    </ol>
+    </ul>
+  <%= will_paginate @comments %>
+<% else %>
+  <h3>Comments (no comments)</h3>
+<% end %>
+
+<% if current_user %>
+  <h3>Add Comments</h3>
+  <%= render 'comments/comment_form' %>
+<% end %>

@@ -1,0 +1,47 @@
+<% provide(:title, 'New Event') %>
+<h1>New Event</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@event, url: society_events_path, :html => {:multipart => true}) do |f| %>
+      <% if @event.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+        <ul>
+        <% @event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.hidden_field :society_id, :value => params[:society_id] %>
+
+      <div class="field">
+        <%= f.label :name, "Event Name" %><br>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :date, "Date" %><br>
+        <%= f.text_field :date, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :ticketnum, "Number of Tickets" %><br>
+        <%= f.number_field :ticketnum, min: 0, value: 0, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :description, "Event Description" %><br>
+        <%= f.text_area :description, placeholder: "Introduce your event...", class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :image, "Event Image" %><br>
+        <%= f.file_field :image, class: "form-control" %>
+      </div>
+
+      <%= f.submit "Create a new Event", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
